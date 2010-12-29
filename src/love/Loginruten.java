@@ -133,7 +133,7 @@ public class Loginruten
             	   m_x = me.getX();
             	   m_y = me.getY();
             	   PostDataRuten(timestamp);
-            	   RutenInfoOutput rio = new RutenInfoOutput(2);
+            	   RutenInfoOutput rio = new RutenInfoOutput(37);
             	   rio.getCurrentOrderTNO(cookies);
        	    	   WriteExcelfile wexcel = new WriteExcelfile();
     	    	   wexcel.WriteExcel(rio);

@@ -67,7 +67,7 @@ public class RutenInfoOutput
     {
     	//get one page
     	String surl; 
-    	for (int i=1; i < page; i++)
+    	for (int i=1; i <= page; i++)
     	{
     		surl = "http://mybid.ruten.com.tw/master/my.php?l_type=sel_confirmed&p=" + i +"&p_size=30&o_column=it&o_sort=desc&s_year=2010&s_month=06&s_day=29&e_year=2010&e_month=12&e_day=29&s_type=0&s_hour=11&s_minute=01&s_second=00&e_hour=11&e_minute=01&e_second=00&has_search=0&s_content=";   		
     		getCurrentPageOrder(cookies, surl);

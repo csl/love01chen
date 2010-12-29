@@ -35,25 +35,28 @@ public class WriteExcelfile {
         {
           	switch (j)
            	{
-           		case 0:
+       			case 0:
+       				label = new Label(j, 0, "tno");
+       				break;
+           		case 1:
        	            label = new Label(j, 0, "會員名稱");
            			break;
-           		case 1:
+           		case 2:
        	            label = new Label(j, 0, "姓名");
            			break;
-           		case 2:
+           		case 3:
        	            label = new Label(j, 0, "電話");
            			break;
-           		case 3:
+           		case 4:
        	            label = new Label(j, 0, "手機");
            			break;
-           		case 4:
+           		case 5:
        	            label = new Label(j, 0, "email");
            			break;
-           		case 5:
+           		case 6:
        	            label = new Label(j, 0, "地址");
             			break;
-           		case 6:
+           		case 7:
       	            label = new Label(j, 0, "賣家的話");
            			break;
            	}
@@ -67,21 +70,24 @@ public class WriteExcelfile {
 	           	            l = 20;
 	               			break;
 	               		case 1:
-	           	            l = 14;
+	           	            l = 20;
 	               			break;
 	               		case 2:
-	           	            l = 11;
+	           	            l = 14;
 	               			break;
 	               		case 3:
 	           	            l = 11;
 	               			break;
 	               		case 4:
-	           	            l = 30;
+	           	            l = 11;
 	               			break;
 	               		case 5:
+	           	            l = 30;
+	               			break;
+	               		case 6:
 	           	            l = 57;
 	                			break;
-	               		case 6:
+	               		case 7:
 	           	            l = 80;
 	               			break;
 	               	}
@@ -99,25 +105,28 @@ public class WriteExcelfile {
             {
             	switch (j)
             	{
-            		case 0:
+        			case 0:
+        				label = new Label(j, i+1, mydata.tno);
+        				break;
+            		case 1:
         	            label = new Label(j, i+1, mydata.memberid);
             			break;
-            		case 1:
+            		case 2:
         	            label = new Label(j, i+1, mydata.recname);
             			break;
-            		case 2:
+            		case 3:
         	            label = new Label(j, i+1, mydata.recphone);
             			break;
-            		case 3:
+            		case 4:
         	            label = new Label(j, i+1, mydata.reccellphone);
             			break;
-            		case 4:
+            		case 5:
         	            label = new Label(j, i+1, mydata.email);
             			break;
-            		case 5:
+            		case 6:
         	            label = new Label(j, i+1, mydata.rec711addr);
             			break;
-            		case 6:
+            		case 7:
         	            label = new Label(j, i+1, mydata.toTalk);
             			break;
             	}
@@ -131,21 +140,24 @@ public class WriteExcelfile {
 	           	            l = 20;
 	               			break;
 	               		case 1:
-	           	            l = 14;
+	           	            l = 20;
 	               			break;
 	               		case 2:
-	           	            l = 11;
+	           	            l = 14;
 	               			break;
 	               		case 3:
 	           	            l = 11;
 	               			break;
 	               		case 4:
-	           	            l = 30;
+	           	            l = 11;
 	               			break;
 	               		case 5:
+	           	            l = 30;
+	               			break;
+	               		case 6:
 	           	            l = 57;
 	                			break;
-	               		case 6:
+	               		case 7:
 	           	            l = 80;
 	               			break;
 	               	}
