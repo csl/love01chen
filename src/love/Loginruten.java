@@ -135,7 +135,8 @@ public class Loginruten
             	   PostDataRuten(timestamp);
             	   RutenInfoOutput rio = new RutenInfoOutput(37);
             	   rio.getCurrentOrderTNO(cookies);
-       	    	   WriteExcelfile wexcel = new WriteExcelfile();
+            	   //rio.getCurrentPageDetailOrder(cookies, "http://mybid.ruten.com.tw/master/view_transaction.php?tno=10081734573491");
+            	   WriteExcelfile wexcel = new WriteExcelfile();
     	    	   wexcel.WriteExcel(rio);
             	   /*
             	   //fetch order

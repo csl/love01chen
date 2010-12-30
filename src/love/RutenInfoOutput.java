@@ -38,6 +38,8 @@ public class RutenInfoOutput
     private boolean outorder;
     private int page;
     private boolean send711;
+    private boolean faccept;
+    private boolean orderexpection;
     private boolean accept;
    
     public RutenInfoOutput(int cpage) 
@@ -165,6 +167,9 @@ public class RutenInfoOutput
  	    		}
  	    	}
  	    	catch( IOException ioe ){}
+ 	    	
+ 	    	System.exit(0);
+
  	   	}
  	    
  	    return range;
@@ -172,7 +177,8 @@ public class RutenInfoOutput
 
     public void getCurrentPageDetailOrder(String cookies, String surl)
     {
-    	int field=0;
+    	int field = 0;
+    	int first_field = 0;
     	outorder = false;
     	
  	    BufferedReader br = null;
@@ -213,8 +219,21 @@ public class RutenInfoOutput
  	     my = new Order();
  	     my.tno = surl.substring(58, surl.length());
  	     
- 	     //Collect URL for information 	     
- 	     loadtable_item(loadtable(htmlfile, 7), 1, 0);
+ 	     //Collect URL for information 	    
+ 	     first_field = 7;
+ 	     faccept = false;
+	     for (int r=first_field; r<15; r++)
+ 	     {
+	 	     boolean rep = loadtable_item(loadtable(htmlfile, first_field), 1, 0);
+ 	       	 if (rep == true)
+ 	       	 {
+ 	       		 field = r;
+ 	             faccept = false;
+ 	       		 System.out.println("first field: " + field);
+ 	       		 break;
+ 	       	 }
+ 	    }
+ 	     
  	     
  	     if (send711 == true)
  	     {
@@ -222,33 +241,7 @@ public class RutenInfoOutput
  	         send711 = false;
  	         accept = false;
  	         
- 	         field = 11;
- 	         for (int r=field; r<15; r++)
- 	         {
- 	 	    	 boolean rep = loadtable_item(loadtable(htmlfile, r), 1, 1);
- 	        	 if (rep == true)
- 	        	 {
- 	        		 field = r;
- 	    	         accept = false;
- 	        		 System.out.println("field: " + field);
- 	        		 break;
- 	        	 }
- 	         }
- 	         
- 	    	 if (outorder == false)
- 	    	 {
- 		    	 loadtable_item(loadtable(htmlfile, field + 2), 1, 2);
- 	    		 loadtable_item(loadtable(htmlfile, field + 3), 1, 3);
- 	    	 }
- 	    	 else
- 	    	 {
- 	    		 loadtable_item(loadtable(htmlfile, field + 4), 1, 2); 	    		 
- 	    		 loadtable_item(loadtable(htmlfile, field + 5), 1, 3); 	    		 
- 	    	 }
- 	     }
- 	     else
- 	     {
- 	    	 field = 10;
+ 	         field = first_field + 4;
  	         for (int r=field; r<15; r++)
  	         {
  	 	    	 boolean rep = loadtable_item(loadtable(htmlfile, r), 1, 1);
@@ -261,16 +254,65 @@ public class RutenInfoOutput
  	        	 }
  	         }
 
- 	    	 
- 	    	 if (outorder == false)
+	         boolean rep = loadtable_item(loadtable(htmlfile, field + 2), 1, 2);
+ 	    	 if (rep == false)
  	    	 {
- 		    	 loadtable_item(loadtable(htmlfile, field + 2), 1, 2);
- 	    		 loadtable_item(loadtable(htmlfile, field + 3), 1, 3);
+ 	    		orderexpection = false;
+ 	    		System.out.println("error.");
+ 	 	         for (int r=field+3; r<20; r++)
+ 	 	         {
+ 	 	 	    	 boolean rc = loadtable_item(loadtable(htmlfile, r), 1, 2);
+ 	 	        	 if (rc == true)
+ 	 	        	 {
+ 	 	        		 field = r;
+ 	 	 	    		 orderexpection = false;
+ 	 	        		 System.out.println("ok field: " + field);
+ 	 	        		 break;
+ 	 	        	 }
+ 	 	         }
+ 	    		loadtable_item(loadtable(htmlfile, field + 1), 1, 3);	    		 
  	    	 }
  	    	 else
  	    	 {
- 	    		 loadtable_item(loadtable(htmlfile, field + 4), 1, 2); 	    		 
- 	    		 loadtable_item(loadtable(htmlfile, field + 5), 1, 3); 	    		 
+ 	    		loadtable_item(loadtable(htmlfile, field + 3), 1, 3); 	    		  	    		 
+ 	    	 }
+ 	     }
+ 	     else
+ 	     {
+ 	    	 field = first_field + 3;
+ 	         for (int r=field; r<15; r++)
+ 	         {
+ 	 	    	 boolean rep = loadtable_item(loadtable(htmlfile, r), 1, 1);
+ 	        	 if (rep == true)
+ 	        	 {
+ 	        		 field = r;
+ 	    	         accept = false;
+ 	        		 System.out.println("field: " + field);
+ 	        		 break;
+ 	        	 }
+ 	         }
+ 	    	 
+	         boolean rep = loadtable_item(loadtable(htmlfile, field + 2), 1, 2);
+ 	    	 if (rep == false)
+ 	    	 {
+ 	    		orderexpection = false;
+ 	    		System.out.println("error.");
+ 	 	         for (int r=field+3; r<20; r++)
+ 	 	         {
+ 	 	 	    	 boolean rc = loadtable_item(loadtable(htmlfile, r), 1, 2);
+ 	 	        	 if (rc == true)
+ 	 	        	 {
+ 	 	        		 field = r;
+ 	 	 	    		 orderexpection = false;
+ 	 	        		 System.out.println("field: " + field);
+ 	 	        		 break;
+ 	 	        	 }
+ 	 	         }
+ 	    		loadtable_item(loadtable(htmlfile, field + 1), 1, 3);	    		 
+ 	    	 }
+ 	    	 else
+ 	    	 {
+ 	    		loadtable_item(loadtable(htmlfile, field + 3), 1, 3); 	    		  	    		 
  	    	 }
  	     }
  	     
@@ -290,32 +332,36 @@ public class RutenInfoOutput
  	    	catch( IOException ioe ){
  	    		
  	    		e.printStackTrace(); 
+ 	 	    	System.exit(0);
 
  	    	}
    		}
     }
     
-    
-    
      //25, secret, 17, order
      public String loadtable(String html, int item) { 
 
          String result ="";
+         String chtml = html;
          
          //get sale table
          try { 
                //Parser parser = new Parser ("test.html");
-         	  Parser parser = Parser.createParser(html,"Big5");
+         	   Parser parser = Parser.createParser(chtml,"Big5");
                parser.setEncoding("Big5");
 
                String filterStr="table";
                NodeFilter filter = new TagNameFilter(filterStr);
                NodeList nodeList = parser.extractAllNodesThatMatch(filter);
-           	  TableTag tabletag = (TableTag) nodeList.elementAt(item);
-           	  result =  tabletag.toHtml();
+               if (nodeList.elementAt(item) != null)
+               {
+            	   TableTag tabletag = (TableTag) nodeList.elementAt(item);
+            	   result = tabletag.toHtml();
+               }
          }catch (Exception e) { 
 
              e.printStackTrace(); 
+  	    	 System.exit(0);
 
          }
           return result;         
@@ -343,6 +389,17 @@ public class RutenInfoOutput
                          {
                      	  	if (func == 0 && i == 0)
                     	  	{
+                    	  		if (td[0].toPlainTextString().trim().equals("得標時間"))
+                    	  		{
+                    	  			faccept = true;
+                    	  		}
+                    	  		
+                    	  		if (faccept == false)
+                    	  		{
+                    	  			System.out.println("can't find 得標時間 tag: " + td[0].toPlainTextString().trim());
+                    	  			return false;
+                    	  		}
+
                     	  		if (k == 0)
                     	  		{
                     	  			my.buyerdate = td[k].toPlainTextString().trim();
@@ -403,7 +460,7 @@ public class RutenInfoOutput
                     	  		
                     	  		if (accept == false)
                     	  		{
-                    	  			System.out.println("ctag: " + td[0].toPlainTextString().trim());
+                    	  			System.out.println("can't find 買家資訊 tag: " + td[0].toPlainTextString().trim());
                     	  			return false;
                     	  		}
                     	  		
@@ -438,6 +495,17 @@ public class RutenInfoOutput
                     	  	}
                     	  	else if (func == 2)
                     	  	{
+                    	  		if (td[0].toPlainTextString().trim().equals("付款資訊"))
+                    	  		{
+                    	  			orderexpection = true;
+                    	  		}
+                    	  		
+                    	  		if (orderexpection == false || td[0].toPlainTextString().trim().equals("出貨資料"))
+                    	  		{
+                    	  			System.out.println("orderexpection error: " + td[0].toPlainTextString().trim());
+                    	  			return false;
+                    	  		}
+                    	  		
                     	  		if (k == 0)
                     	  		{
                     	  			switch (j)
@@ -495,7 +563,6 @@ public class RutenInfoOutput
                     	  	}
                     	  	else if (func == 3)
                     	  	{
-                    	  		//System.out.println("talk tag:" +  td[k].toPlainTextString().trim());
                     	  		if (k == 0)
                     	  		{
             	  					my.toTalk = td[k+1].toPlainTextString().trim();
@@ -511,8 +578,11 @@ public class RutenInfoOutput
                      }
                  }
              }
-         } catch (ParserException e) {
+         } catch (ParserException e) 
+         {
              e.printStackTrace();
+  	    	System.exit(0);
+
          }    	
      	
          return true;
@@ -554,12 +624,16 @@ public class RutenInfoOutput
                  	    }
                  	    catch (Exception X)
                  	    {
+                 	    	System.exit(0);
+
                  	    } 
                  }
              }
 
          } catch (ParserException e) {
              e.printStackTrace();
+  	    	System.exit(0);
+
          }    
 
   		return range;

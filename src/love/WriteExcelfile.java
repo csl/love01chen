@@ -121,7 +121,14 @@ public class WriteExcelfile {
         	            label = new Label(j, i+1, mydata.reccellphone);
             			break;
             		case 5:
-        	            label = new Label(j, i+1, mydata.email);
+            			if (mydata.email.equals(""))
+            			{
+            				label = new Label(j, i+1, mydata.byueremail);
+            			}
+            			else
+            			{
+            				label = new Label(j, i+1, mydata.email);
+            			}
             			break;
             		case 6:
         	            label = new Label(j, i+1, mydata.rec711addr);
